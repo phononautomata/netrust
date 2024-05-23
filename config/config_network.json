@@ -1,0 +1,54 @@
+{
+    "BarabasiAlbert": {
+        "attachment_rate": 2,
+        "average_degree": 10,
+        "size": 1000,
+        "size_initial_cluster": 5
+    },
+    "Complete": {
+        "size": 1000
+    },
+    "Configuration": {
+        "degree_minimum": 2,
+        "degree_maximum": 100,
+        "power_law_exponent": 3.0,
+        "size": 1000
+    },
+    "ConfigurationCorrelated": {
+        "degree_minimum": 2,
+        "degree_maximum": 100,
+        "power_law_exponent": 3.0,
+        "size": 1000
+    },
+    "ConfigurationUncorrelated": {
+        "degree_minimum": 2,
+        "power_law_exponent": 3.0,
+        "size": 1000
+    },
+    "ErdosRenyi": {
+        "average_degree": 5,
+        "probability_connection": 0.1,
+        "size": 1000
+    },
+    "Lattice": {
+        "nxcells": 100,
+        "nycells": 100
+    },
+    "LatticePBC": {
+        "nxcells": 100,
+        "nycells": 100
+    },
+    "RandomGeometric": {
+        "radius": 10.0,
+        "size": 1000
+    },
+    "Regular": {
+        "average_degree": 5,
+        "size": 1000
+    },
+    "WattsStrogatz": {
+        "average_degree": 5,
+        "probability_rewiring": 0.1,
+        "size": 1000
+    }
+}
