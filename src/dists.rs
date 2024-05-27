@@ -1,7 +1,5 @@
 use rand::prelude::*;
-//use rand::distributions::{Distribution, WeightedIndex};
 
-/// Compute a cumulative gauge to serve as a PRNG for a truncated powerlaw $P(k)=k^{-\gamma}$.
 pub fn powerlaw_cumulative_gauge(n: usize, k_min: usize, k_max: usize, gamma: f64) -> Vec<f64> {
     let dim = k_max + 1 - k_min;
     let mut k_array = vec![0; dim];
@@ -21,7 +19,6 @@ pub fn powerlaw_cumulative_gauge(n: usize, k_min: usize, k_max: usize, gamma: f6
     cdf
 }
 
-/// Generate integer random variates using a cumulative gauge following a particular mathematical law.
 pub fn random_powerlaw_variate(cdf: &[f64], k_min: usize) -> usize {
     let mut rng = rand::thread_rng();
     let trial: f64 = rng.gen();
@@ -33,8 +30,6 @@ pub fn random_powerlaw_variate(cdf: &[f64], k_min: usize) -> usize {
     k_min + k
 }
 
-/// Build a degree sequence, an array where each element is the connectivity degree of the node. This routine is
-/// conceived now just for a truncated power-law function.
 pub fn build_powerlaw_degree_sequence(
     n: usize,
     gamma: f64,

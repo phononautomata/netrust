@@ -205,20 +205,20 @@ impl Network {
         }
     }
 
-    pub fn degree_sequence(&self) -> Vec<usize> {
-        let mut degrees = vec![0; self.nodes.len()];
-        for node in &self.nodes {
-            degrees[node.id] = node.neighbors.len();
-        }
-        degrees
-    }
-
     pub fn degree_distribution(&self) -> HashMap<usize, usize> {
         let mut distribution = HashMap::new();
         for node in &self.nodes {
             *distribution.entry(node.neighbors.len()).or_default() += 1;
         }
         distribution
+    }
+
+    pub fn degree_sequence(&self) -> Vec<usize> {
+        let mut degrees = vec![0; self.nodes.len()];
+        for node in &self.nodes {
+            degrees[node.id] = node.neighbors.len();
+        }
+        degrees
     }
 
     pub fn maximum_degree(&self) -> usize {
@@ -248,16 +248,16 @@ impl Network {
         total_degree_p as f64 / nodes_count as f64
     }
 
-    pub fn number_of_nodes(&self) -> usize {
-        self.nodes.len()
-    }
-
     pub fn number_of_connections(&self) -> usize {
         let mut connections = 0;
         for node in &self.nodes {
             connections += node.neighbors.len();
         }
         connections
+    }
+
+    pub fn number_of_nodes(&self) -> usize {
+        self.nodes.len()
     }
 
     pub fn is_connected_bfs(&self) -> bool {
@@ -1096,7 +1096,7 @@ impl SpatialNetwork {
         self.nodes[node2_index].neighbors.push(id1);
     }
 
-    pub fn build_random_geometric_network(n: usize, radius: f64) -> Self {
+    pub fn generate_random_geometric_graph(n: usize, radius: f64) -> Self {
         let mut nodes = vec![];
         let mut rng = thread_rng();
 

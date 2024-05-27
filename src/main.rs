@@ -20,6 +20,8 @@ pub struct Args {
     pub degree_minimum: usize,
     #[clap(long, value_parser, default_value_t = false)]
     pub flag_config: bool,
+    #[clap(long, value_parser, default_value_t = false)]
+    pub flag_connected: bool,
     #[clap(long, value_parser, default_value = "lattice-pbc")]
     pub model_network: NetworkModel,
     #[clap(long, value_parser, default_value = "adjacency-list")]
@@ -36,7 +38,7 @@ pub struct Args {
     pub probability_rewiring: f64,
     #[clap(long, value_parser, default_value_t = 10.0)]
     pub radius: f64,
-    #[clap(long, value_parser, default_value_t = 1000)]
+    #[clap(long, value_parser, default_value_t = 10000)]
     pub size: usize,
     #[clap(long, value_parser, default_value_t = 5)]
     pub size_initial_cluster: usize,
@@ -111,7 +113,17 @@ fn main() {
         }
     };
 
-    let graph = Network::generate_network(args.model_network, pars_net.clone());
+    let mut graph: Network;
+    if args.flag_connected {
+        loop {
+            graph = Network::generate_network(args.model_network, pars_net.clone());
+            if graph.is_connected_dfs() {
+                break;
+            }
+        }
+    } else {
+        graph = Network::generate_network(args.model_network, pars_net.clone());
+    }
 
-    graph.save_to_file(&pars_net, args.model_output)
+    graph.save_to_file(&pars_net, args.model_output);
 }
