@@ -26,10 +26,12 @@ pub struct Args {
     pub model_network: NetworkModel,
     #[clap(long, value_parser, default_value = "adjacency-list")]
     pub model_output: OutputModel,
-    #[clap(long, value_parser, default_value_t = 25)]
+    #[clap(long, value_parser, default_value_t = 100)]
     pub nxcells: usize,
-    #[clap(long, value_parser, default_value_t = 2)]
+    #[clap(long, value_parser, default_value_t = 100)]
     pub nycells: usize,
+    #[clap(long, value_parser, default_value = "/data/")]
+    pub path_target: String,
     #[clap(long, value_parser, default_value_t = 3.0)]
     pub power_law_exponent: f64,
     #[clap(long, value_parser, default_value_t = 0.0)]

@@ -895,19 +895,22 @@ impl Network {
 
     pub fn save_to_file(&self, pars_net: &NetworkPars, model_output: OutputModel) {
         let uuid = Uuid::new_v4().to_string();
-        let string_network = self.construct_string_network(pars_net, &uuid);
+        let mut string_network = self.construct_string_network(pars_net, &uuid);
 
         match model_output {
             OutputModel::AdjacencyList => {
                 let adj_list = self.to_adjacency_list();
+                string_network = format!("net_adl_{}.pickle", string_network);
                 self.to_json(&adj_list, &string_network)
             }
             OutputModel::AdjacencyMatrix => {
                 let adj_matrix = self.to_adjacency_matrix();
+                string_network = format!("net_adm_{}.pickle", string_network);
                 self.to_json(&adj_matrix, &string_network)
             }
             OutputModel::EdgeList => {
                 let edge_list = self.to_edge_list();
+                string_network = format!("net_edl_{}.pickle", string_network);
                 self.to_json(&edge_list, &string_network)
             }
             OutputModel::NetRustObject => self.to_pickle(&string_network),
@@ -1015,9 +1018,20 @@ impl Network {
         edge_list
     }
 
-    pub fn to_json<T: Serialize>(&self, data: &T, filename: &str) {
+    pub fn to_json<T: Serialize>(&self, data: &T, string_network: &str) {
+        let mut path = env::current_dir()
+            .expect("Failed to get current directory")
+            .join("data")
+            .join("networks");
+
+        if !path.exists() {
+            fs::create_dir_all(&path).expect("Failed to create directory");
+        }
+
+        path.push(format!("{}.json", string_network));
+
         let json = serde_json::to_string_pretty(data).expect("Failed to serialize data");
-        let mut file = File::create(filename).expect("Failed to create file");
+        let mut file = File::create(path).expect("Failed to create file");
         file.write_all(json.as_bytes())
             .expect("Failed to write to file");
     }
