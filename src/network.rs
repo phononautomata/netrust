@@ -151,15 +151,7 @@ impl Network {
                 )
             }
             NetworkPars::Complete(pars) => {
-                format!("co_n{}", pars.size)
-            }
-            NetworkPars::ErdosRenyi(pars) => {
-                format!(
-                    "er_n{}_k{}_{}",
-                    pars.size,
-                    pars.average_degree.unwrap(),
-                    uuid
-                )
+                format!("com_n{}", pars.size)
             }
             NetworkPars::Configuration(pars) => {
                 format!(
@@ -187,6 +179,14 @@ impl Network {
                     pars.size, pars.degree_minimum, pars.power_law_exponent, uuid
                 )
             }
+            NetworkPars::ErdosRenyi(pars) => {
+                format!(
+                    "er_n{}_k{}_{}",
+                    pars.size,
+                    pars.average_degree.unwrap(),
+                    uuid
+                )
+            }    
             NetworkPars::Lattice(pars) => {
                 format!("lat_nx{}_ny{}", pars.nxcells, pars.nycells)
             }
