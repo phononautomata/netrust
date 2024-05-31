@@ -900,17 +900,17 @@ impl Network {
         match model_output {
             OutputModel::AdjacencyList => {
                 let adj_list = self.to_adjacency_list();
-                string_network = format!("net_adl_{}.pickle", string_network);
+                string_network = format!("net_adl_{}", string_network);
                 self.to_json(&adj_list, &string_network)
             }
             OutputModel::AdjacencyMatrix => {
                 let adj_matrix = self.to_adjacency_matrix();
-                string_network = format!("net_adm_{}.pickle", string_network);
+                string_network = format!("net_adm_{}", string_network);
                 self.to_json(&adj_matrix, &string_network)
             }
             OutputModel::EdgeList => {
                 let edge_list = self.to_edge_list();
-                string_network = format!("net_edl_{}.pickle", string_network);
+                string_network = format!("net_edl_{}", string_network);
                 self.to_json(&edge_list, &string_network)
             }
             OutputModel::NetRustObject => self.to_pickle(&string_network),
